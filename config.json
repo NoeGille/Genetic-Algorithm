@@ -1,0 +1,8 @@
+{
+    "chromosome_length": 100,
+    "population_size": 100,
+    "mutation_rate": 0.01,
+    "crossover_rate": 0.7,
+    "max_generations": 100,
+    "choose_best": 0.2
+}
