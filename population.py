@@ -5,9 +5,8 @@ from config import Config
 class Population():
     def __init__(self):
         self.config = Config()
-
-        self.population = [Individual() for _ in range(self.config.population_size)]
-        self.grades = np.array([self.config.population_size for _ in range(self.config.population_size)])
+        self.population = np.array([Individual(np.random.randint(0, self.config.chromosome_length, (self.config.chromosome_length, 2))) for _ in range(self.config.population_size)])
+        self.grades = np.array([individual.get_grade() for individual in self.population])
         self.mating_pool = []
         self.generation = 0
     
@@ -51,7 +50,13 @@ class Population():
         self.generation += 1
 
     def select_population(self):
-        self.mating_pool = self.population[:self.config.population_size]
+        self.mating_pool = []
+        sort_index = np.argsort(self.grades)
+        grades = []
+        for i in range(round(self.config.population_size * self.config.choose_best)):
+            self.mating_pool.append(self.population[sort_index[i]])
+            grades.append(self.grades[sort_index[i]])
+        return self.mating_pool
 
     def mate_population(self):
         offspring = []

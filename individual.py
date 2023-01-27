@@ -5,7 +5,7 @@ class Individual():
 
     # CONSTRUCTOR
 
-    def __init__(self, chromosome : np.ndarray = np.random.randint(0, Config().chromosome_length, (Config().chromosome_length, 2))):
+    def __init__(self, chromosome : np.ndarray = None):
         self.config = Config()
         self.chromosome = chromosome
         self.grade = self.get_grade()
@@ -38,9 +38,10 @@ class Individual():
                 child_chromosome.append(self.chromosome[i])
             else:
                 child_chromosome.append(partner.chromosome[i])
+        return Individual(np.array(child_chromosome))
 
     def mutate(self):
         for i in range(len(self.chromosome)):
             if np.random.random() < self.config.mutation_rate:
-                self.chromosome[i] = np.random.randint(0, 2)
+                self.chromosome[i] = np.random.randint(0, self.config.population_size)
     

@@ -10,9 +10,10 @@ class GeneticAlgorithm():
         self.result = self.population.get_best_individual()
         
 
-    def evolve(self, population: Population, generations : int) -> Population:
+    def evolve(self, generations : int) -> Population:
         for _ in range(generations):
-            self.population = self.evolve_population(self.population)
+            self.population.evolve_population()
+            print(self.population.get_best_individual().get_grade())
         self.result = self.population.get_best_individual()
     
     def get_result(self):
